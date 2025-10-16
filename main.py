@@ -12,10 +12,14 @@ def main():
         curr_location = set_curr_location()
         print("Location set!")
 
-    print(curr_location)
+    curr_forecast = get_forecast(curr_location)
+    if not curr_forecast:
+        print("An error occured. Please check your internet connection.")
+    else:
+        print(curr_forecast["weather"])
     
 def get_forecast(location):
-    response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location["city"]},us&units=imperial&appid={api_key}")
+    response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location["city"]},{location["country"]}&units=imperial&appid={api_key}")
     if response.status_code == 200:
         data = response.json()
         return data
