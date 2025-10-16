@@ -1,2 +1,4 @@
 .venv
 .env
+curr_location.txt
+__pycache__/
