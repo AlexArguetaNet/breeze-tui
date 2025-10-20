@@ -17,7 +17,7 @@ def main():
     if not curr_forecast:
         print("An error occured. Please check your internet connection.")
     else:
-        print(art.partly_cloudy)
+        print(art.snow)
         print(curr_forecast["weather"])
     
 def get_forecast(location):
