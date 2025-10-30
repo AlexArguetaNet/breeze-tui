@@ -18,12 +18,13 @@ def main():
         print("An error occured. Please check your internet connection.")
     else:
         print(art.snow)
-        print(curr_forecast["weather"])
+        print(curr_forecast["main"][0])
     
 def get_forecast(location):
     response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location["city"]},{location["country"]}&units=imperial&appid={api_key}")
     if response.status_code == 200:
         data = response.json()
+
         return data
     else:
         return None
