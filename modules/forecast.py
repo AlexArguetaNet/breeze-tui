@@ -1,4 +1,5 @@
 import art
+import math
 
 class Forecast:
     def __init__(self, weather):
@@ -27,6 +28,7 @@ class Forecast:
         return self._temp
     @temp.setter
     def temp(self, temp):
+        temp = f"{str(temp).split(".")[0]} °"
         self._temp = temp
     
     @property
@@ -58,9 +60,15 @@ class Forecast:
                 return art.mist
             case "drizzle":
                 return art.rain
+            case "heavy intensity rain":
+                return art.rain
+            case "moderate rain":
+                return art.rain
+            case "overcast clouds":
+                return art.clouds
             case _:
                 return "image"
             
     def __str__(self):
-        return f"{self.city}\n{self.ascii}\n{self.temp}\n{self.desc}"
+        return f"\n{self.city}\n{self.ascii}\n{self.temp}\n{self.desc}\n"
 
