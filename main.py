@@ -14,16 +14,18 @@ def main():
         print("An error occured. Please check your internet connection.")
         sys.exit()
     
-    clear_terminal()
-    menu_option = create_menu(["3 Day Forecast", "Set Location", "Exit"], curr_forecast.__str__())
-    if menu_option == 0:
-        # TODO: Implement 3 day forecast option
-        ...
-    elif menu_option == 1:
-        # TODO: Implement set location option
-        ...
-    else:
-        sys.exit()
+    while True:
+        clear_terminal()
+        menu_option = create_menu(["3 Day Forecast", "Set Location", "Exit"], curr_forecast.__str__())
+        if menu_option == 0:
+            # TODO: Implement 3 day forecast option
+            ...
+        elif menu_option == 1:
+            # Set new location
+            new_location = set_curr_location()
+            curr_forecast = get_forecast(new_location)
+        else:
+            sys.exit()
     
 if __name__ == "__main__":
     main() 
