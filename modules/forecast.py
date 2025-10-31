@@ -1,4 +1,4 @@
-import art
+import utils.art as art
 import math
 
 class Forecast:
@@ -43,7 +43,7 @@ class Forecast:
             case "clear sky":
                 return art.sun
             case "few clouds":
-                return art.clouds
+                return art.sun_and_cloud
             case "scattered clouds":
                 return art.sun_and_cloud
             case "broken clouds":
