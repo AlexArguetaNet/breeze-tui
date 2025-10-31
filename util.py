@@ -4,8 +4,9 @@ def get_curr_location():
         with open("curr_location.txt") as file:
             line = file.readline()
             if line:
-                location = line.split(",")
-                return {"city": location[0], "country": location[1]}
+                city, country = line.split(",")
+                city = city.replace(" ", "+")
+                return {"city": city, "country": country}
             else:
                 return None
     except FileNotFoundError:

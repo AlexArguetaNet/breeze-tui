@@ -37,15 +37,30 @@ class Forecast:
         self._wind = wind
 
     def set_ascii(self):
-        print(self.desc)
         match self.desc:
             case "clear sky":
                 return art.sun
+            case "few clouds":
+                return art.clouds
             case "scattered clouds":
                 return art.sun_and_cloud
+            case "broken clouds":
+                return art.sun_and_cloud
+            case "shower rain":
+                return art.rain
+            case "rain":
+                return art.rain
+            case "thunderstorm":
+                return art.thunder_storm
+            case "snow":
+                return art.snow
+            case "mist":
+                return art.mist
+            case "drizzle":
+                return art.rain
             case _:
                 return "image"
             
     def __str__(self):
-        return f"{self.ascii}\n{self.temp}\n{self.desc}"
+        return f"{self.city}\n{self.ascii}\n{self.temp}\n{self.desc}"
 
