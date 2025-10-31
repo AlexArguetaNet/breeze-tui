@@ -1,5 +1,6 @@
-from util import get_curr_location, set_curr_location
-from util import get_forecast, create_menu, clear
+from utils.location_storage import get_curr_location, set_curr_location
+from utils.weather_api import get_forecast
+from utils.cli_helpers import create_menu, clear_terminal
 import sys
 
 def main():
@@ -13,7 +14,7 @@ def main():
         print("An error occured. Please check your internet connection.")
         sys.exit()
     
-    clear()
+    clear_terminal()
     menu_option = create_menu(["3 Day Forecast", "Set Location", "Exit"], curr_forecast.__str__())
     if menu_option == 0:
         # TODO: Implement 3 day forecast option
