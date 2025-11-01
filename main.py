@@ -4,15 +4,28 @@ from utils.cli_helpers import create_menu, clear_terminal
 import sys
 
 def main():
-    curr_location = get_curr_location()
-    if not curr_location:
-        curr_location = set_curr_location()
-        print("Location set!")
 
-    curr_forecast = get_forecast(curr_location)
-    if not curr_forecast:
-        print("An error occured. Please check your internet connection.")
-        sys.exit()
+    # Try to get the current location
+    curr_location = get_curr_location()
+    if not curr_location: # If curr_location.txt doesn't exist
+        curr_location = set_curr_location()
+
+    while True:
+        
+        forecast_res = get_forecast(curr_location)
+
+        if forecast_res["cod"] == 200:
+            break
+        elif forecast_res["cod"] == "404" and forecast_res["message"] == "city not found":
+            print("Invalid location")
+            curr_location = set_curr_location()
+            pass
+        else:
+            print(forecast_res["message"])
+            sys.exit()
+
+    # Getting Forecast object from successful response
+    curr_forecast = forecast_res["forecast"]
     
     while True:
         clear_terminal()
@@ -21,9 +34,20 @@ def main():
             # TODO: Implement 3 day forecast option
             ...
         elif menu_option == 1:
+
             # Set new location
+            og_location = get_curr_location()
             new_location = set_curr_location()
-            curr_forecast = get_forecast(new_location)
+            forecast_res = get_forecast(new_location)
+
+            if forecast_res["cod"] == "404" and forecast_res["message"] == "city not found":
+                print("Invalid location")
+                set_curr_location(og_location)
+                pass
+            else:
+                curr_forecast = forecast_res["forecast"]
+
+
         else:
             sys.exit()
     
