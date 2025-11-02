@@ -7,7 +7,8 @@ class Forecast:
         self.desc = weather["desc"]
         self.temp = weather["temp"]
         self.wind = weather["wind"]
-        self.ascii = self.set_ascii()
+        self.dt = weather["dt"]
+  
 
     @property
     def city(self):
@@ -38,7 +39,18 @@ class Forecast:
     def wind(self, wind):
         self._wind = wind
 
-    def set_ascii(self):
+    @property
+    def dt(self):
+        return self._dt
+    @dt.setter
+    def dt(self, dt):
+        self._dt = dt 
+
+    @property
+    def get_ascii(self):
+        return self._ascii
+
+    def get_ascii(self):
         match self.desc:
             case "clear sky":
                 return art.sun
@@ -70,5 +82,5 @@ class Forecast:
                 return "image"
             
     def __str__(self):
-        return f"\n{self.city}\n{self.ascii}\n{self.temp}\n{self.desc}\n"
+        return f"{self.city}\n{self.get_ascii()}\n{self.temp}\n{self.desc}"
 
