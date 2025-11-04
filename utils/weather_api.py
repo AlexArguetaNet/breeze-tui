@@ -1,4 +1,4 @@
-import requests
+import requests, datetime
 from modules.forecast import Forecast
 from modules.three_day_forecast import Three_Day_Forecast
 from utils.env_config import api_key
@@ -25,6 +25,11 @@ def get_forecast(location):
         print(e)
         return e
     
+
+def get_formatted_date(unix_timestamp):
+    local_datetime = datetime.datetime.fromtimestamp(unix_timestamp)
+    return local_datetime
+
     
 def get_3_day_forecast(location):
     try:
@@ -39,13 +44,16 @@ def get_3_day_forecast(location):
             days = []
 
             
-            for i in range(3):
+            for i in range(4):
+
+                dt = get_formatted_date(res_days[i]["dt"])
+
                 weather = {
                     "city": city,
                     "desc": res_days[i]["weather"][0]["description"],
                     "temp": res_days[i]["main"]["temp"],
                     "wind": res_days[i]["wind"],
-                    "dt": res_days[i]["dt"]
+                    "dt": dt
                 }
 
                 days.append(Forecast(weather))
@@ -61,3 +69,6 @@ def get_3_day_forecast(location):
     except requests.exceptions.ConnectionError as e:
         print(e)
         return e
+    
+
+
