@@ -1,6 +1,6 @@
 import requests, datetime
 from modules.forecast import Forecast
-from modules.forecast_few_hours import Forecast_Few_Hours
+from modules.three_hourly_forecast import Three_Hourly_Forecast
 from utils.env_config import api_key
 
 def get_forecast(location):
@@ -28,10 +28,11 @@ def get_forecast(location):
 
 def get_formatted_date(unix_timestamp):
     local_datetime = datetime.datetime.fromtimestamp(unix_timestamp)
-    return local_datetime
+    formatted_time = local_datetime.strftime("%I:%M %p")
+    return formatted_time
 
     
-def get_3_day_forecast(location):
+def get_3_hourly_forecast(location):
     try:
         response = requests.get(f"https://api.openweathermap.org/data/2.5/forecast?q={location["city"]},{location["country"]}&appid={api_key}&units=imperial")
         
@@ -58,7 +59,7 @@ def get_3_day_forecast(location):
 
                 days.append(Forecast(weather))
 
-            forecast = Forecast_Few_Hours(city, country, days)
+            forecast = Three_Hourly_Forecast(city, country, days)
 
             return forecast.__str__()                 
 

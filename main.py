@@ -1,5 +1,5 @@
 from utils.location_storage import get_curr_location, set_curr_location
-from utils.weather_api import get_forecast, get_3_day_forecast
+from utils.weather_api import get_forecast, get_3_hourly_forecast
 from utils.cli_helpers import create_menu, clear_terminal
 import sys
 
@@ -27,14 +27,15 @@ def main():
     # Getting Forecast object from successful response
     curr_forecast = forecast_res["forecast"]
     
+    # From here, the main menu is displayed
     while True:
         clear_terminal()
         menu_option = create_menu(["Fore for the next few hours", "Set Location", "Exit"], f"\n{curr_forecast.__str__()}\n")
         if menu_option == 0:
             # TODO: Implement 3 day forecast option
             clear_terminal()
-            three_day_forecast = get_3_day_forecast(curr_location)
-            option = create_menu(["Back"], three_day_forecast)
+            three_hourly_forecast = get_3_hourly_forecast(curr_location)
+            option = create_menu(["Back"], three_hourly_forecast)
             if option:
                 continue
 
@@ -56,6 +57,8 @@ def main():
 
         else:
             sys.exit()
+
+
     
 if __name__ == "__main__":
     main() 
