@@ -1,6 +1,6 @@
 from modules.forecast import Forecast
 
-class Forecast_Few_Hours:
+class Three_Hourly_Forecast:
     def __init__(self, city, country, days):
         self._city = city
         self._country = country
