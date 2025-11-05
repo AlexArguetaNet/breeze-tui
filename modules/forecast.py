@@ -78,6 +78,8 @@ class Forecast:
                 return art.rain
             case "overcast clouds":
                 return art.clouds
+            case "light rain":
+                return art.rain
             case _:
                 return "image"
             

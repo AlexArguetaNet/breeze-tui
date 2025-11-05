@@ -24,6 +24,8 @@ def get_forecast(location):
     except requests.exceptions.ConnectionError as e:
         print(e)
         return e
+    except TypeError:
+        return None
     
 
 def get_formatted_date(unix_timestamp):
