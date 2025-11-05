@@ -25,7 +25,7 @@ def get_forecast(location):
         print(e)
         return e
     except TypeError:
-        return None
+        return {"cod": "404", "message": "Location file was empty"}
     
 
 def get_formatted_date(unix_timestamp):
