@@ -10,14 +10,15 @@ def main():
         clear_terminal()
         forecast_res = get_forecast(get_curr_location())
 
-        if forecast_res == None:
+        if forecast_res["cod"] == "404":
             # Case that curr_location.txt doesn't exist 
             # or curr_location.txt is empty
+            print("Enter a valid location")
             set_curr_location()
             continue
         else:
             # Case that current location is valid
-            curr_forecast = forecast_res["forecast"]
+            curr_forecast = forecast_res["forecast"] # Get forecast object
             menu_option = create_menu(["Forecast for the next few hours", "Settings", "Exit"], f"\n{curr_forecast.__str__()}\n")
             if menu_option == 0:
                 # TODO: Implement 3 day forecast option
@@ -34,19 +35,15 @@ def main():
 
 def handle_settings():
     option = settings_menu = create_menu(["Set new location", "Change units", "Back"], "Settings")
-
-
-def change_location():
-    og_location = get_curr_location()
-    new_location = set_curr_location()
-    forecast_res = get_forecast(new_location)
-
-    if forecast_res["cod"] == "404" and forecast_res["message"] == "city not found":
-        print("Invalid location")
-        set_curr_location(og_location)
-        return None
-    else:
-        return get_curr_location, forecast_res["forecast"]
+    match option:
+        case 0:
+            valid_location = get_curr_location()
+            new_location = set_curr_location()
+        case 1:
+            #TODO: Implement function to change units
+            pass
+        case _:
+            pass
         
 
 
