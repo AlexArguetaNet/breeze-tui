@@ -1,6 +1,6 @@
 import requests, datetime
 from modules.forecast import Forecast
-from modules.three_day_forecast import Three_Day_Forecast
+from modules.forecast_few_hours import Forecast_Few_Hours
 from utils.env_config import api_key
 
 def get_forecast(location):
@@ -58,7 +58,7 @@ def get_3_day_forecast(location):
 
                 days.append(Forecast(weather))
 
-            forecast = Three_Day_Forecast(city, country, days)
+            forecast = Forecast_Few_Hours(city, country, days)
 
             return forecast.__str__()                 
 

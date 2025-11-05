@@ -29,7 +29,7 @@ def main():
     
     while True:
         clear_terminal()
-        menu_option = create_menu(["3 Day Forecast", "Set Location", "Exit"], f"\n{curr_forecast.__str__()}\n")
+        menu_option = create_menu(["Fore for the next few hours", "Set Location", "Exit"], f"\n{curr_forecast.__str__()}\n")
         if menu_option == 0:
             # TODO: Implement 3 day forecast option
             clear_terminal()
