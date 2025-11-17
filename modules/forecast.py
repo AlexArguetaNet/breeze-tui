@@ -3,48 +3,42 @@ import math
 
 class Forecast:
     def __init__(self, weather):
-        self.city = weather["city"]
-        self.desc = weather["desc"]
-        self.temp = weather["temp"]
-        self.wind = weather["wind"]
-        self.dt = weather["dt"]
-  
+        self._city = weather["city"]
+        self._desc = weather["desc"]
+        self._temp = str(weather["temp"]).split(".")[0]
+        self._wind = weather["wind"]
+        self._dt = weather["dt"]
+        self._units = weather["units"] 
 
     @property
     def city(self):
         return self._city
-    @city.setter
-    def city(self, city):
-        self._city = city
 
     @property
     def desc(self):
         return self._desc
-    @desc.setter
-    def desc(self, desc):
-        self._desc = desc
 
     @property
     def temp(self):
         return self._temp
-    @temp.setter
-    def temp(self, temp):
-        temp = f"{str(temp).split(".")[0]} °"
-        self._temp = temp
     
     @property
     def wind(self):
         return self._wind
-    @wind.setter
-    def wind(self, wind):
-        self._wind = wind
 
     @property
     def dt(self):
         return self._dt
-    @dt.setter
-    def dt(self, dt):
-        self._dt = dt 
+    
+    @property
+    def units(self):
+        return self._units
+    
+    def get_unit_symbol(self):
+        if self.units == "imperial":
+            return "F"
+        else:
+            return "C"
 
     @property
     def get_ascii(self):
@@ -84,5 +78,5 @@ class Forecast:
                 return "image"
             
     def __str__(self):
-        return f"{self.city}\n{self.get_ascii()}\n{self.temp}\n{self.desc}"
+        return f"{self.city}\n{self.get_ascii()}\n{self.temp} {self.get_unit_symbol()}°\n{self.desc}"
 

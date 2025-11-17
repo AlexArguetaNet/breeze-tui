@@ -3,9 +3,28 @@ from modules.forecast import Forecast
 from modules.three_hourly_forecast import Three_Hourly_Forecast
 from utils.env_config import api_key
 
-def get_forecast(location):
+def get_units():
     try:
-        response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location["city"]},{location["country"]}&units=imperial&appid={api_key}")
+        with open("units.txt", "r") as file:
+            line = file.readline().rstrip()
+            if line:
+                return line
+            else:
+                return None
+    except FileNotFoundError:
+        return None
+    
+def set_units(units="imperial"):
+    try:
+        with open("units.txt", "w") as file:
+            file.write(units)
+        return units.rstrip()
+    except ValueError:
+        return None
+
+def get_forecast(location, units="imperial"):
+    try:
+        response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location["city"]},{location["country"]}&units={units}&appid={api_key}")
         if response.status_code == 200:
             data = response.json()
 
@@ -14,7 +33,8 @@ def get_forecast(location):
                 "dt": 0,
                 "desc": data["weather"][0]["description"],
                 "temp": data["main"]["temp"],
-                "wind": data["wind"]
+                "wind": data["wind"],
+                "units": units
             }
 
             return {"cod": 200, "forecast": Forecast(weather)}
@@ -73,5 +93,4 @@ def get_3_hourly_forecast(location):
         print(e)
         return e
     
-
 

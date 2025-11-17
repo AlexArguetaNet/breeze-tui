@@ -1,6 +1,7 @@
 from utils.location_storage import get_curr_location, set_curr_location
 from utils.weather_api import get_forecast, get_3_hourly_forecast
 from utils.cli_helpers import create_menu, clear_terminal
+from utils.weather_api import get_units, set_units
 import sys
 
 def main():
@@ -8,7 +9,12 @@ def main():
     while True:
         # Try to get the current forecast data
         clear_terminal()
-        forecast_res = get_forecast(get_curr_location())
+        
+        units = get_units()
+        if not units:
+            set_units()
+
+        forecast_res = get_forecast(get_curr_location(), units)
 
         if forecast_res["cod"] == "404":
             # Case that curr_location.txt doesn't exist 
@@ -37,11 +43,16 @@ def handle_settings():
     option = settings_menu = create_menu(["Set new location", "Change units", "Back"], "Settings")
     match option:
         case 0:
-            valid_location = get_curr_location()
-            new_location = set_curr_location()
+            get_curr_location()
+            set_curr_location()
         case 1:
             #TODO: Implement function to change units
-            pass
+            units_option = create_menu(["Imperial", "Metric"], "Units")
+            match units_option:
+                case 0:
+                    set_units()
+                case 1:
+                    set_units("metric")
         case _:
             pass
         
