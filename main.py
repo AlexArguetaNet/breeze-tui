@@ -29,7 +29,7 @@ def main():
             if menu_option == 0:
                 # TODO: Implement 3 day forecast option
                 clear_terminal()
-                three_hourly_forecast = get_3_hourly_forecast(get_curr_location())
+                three_hourly_forecast = get_3_hourly_forecast(get_curr_location(), units)
                 option = create_menu(["Back"], three_hourly_forecast)
                 if option:
                     continue

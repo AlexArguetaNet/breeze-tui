@@ -54,7 +54,7 @@ def get_formatted_date(unix_timestamp):
     return formatted_time
 
     
-def get_3_hourly_forecast(location):
+def get_3_hourly_forecast(location, units="imperial"):
     try:
         response = requests.get(f"https://api.openweathermap.org/data/2.5/forecast?q={location["city"]},{location["country"]}&appid={api_key}&units=imperial")
         
@@ -76,7 +76,8 @@ def get_3_hourly_forecast(location):
                     "desc": res_days[i]["weather"][0]["description"],
                     "temp": res_days[i]["main"]["temp"],
                     "wind": res_days[i]["wind"],
-                    "dt": dt
+                    "dt": dt,
+                    "units": units
                 }
 
                 days.append(Forecast(weather))
