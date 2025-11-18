@@ -1,3 +1,4 @@
+from utils.cli_helpers import create_menu
 
 def get_curr_location():
     try:
@@ -23,8 +24,29 @@ def set_curr_location(location=""):
             return {"city": city, "country": country}
         else:
             with open("curr_location.txt", "w") as file:
-                    file.write(f"{location["city"]},{location["country"]}")
-            
-
+                    file.write(f"{location["city"]},{location["country"]}")         
     except ValueError:
+        return None
+    
+def add_recent_location(location):
+    try:
+        with open("recent_locations.txt", "a") as file:
+            file.write(f"{location["city"]},{location["country"]}" + "\n")
+            return location
+    except ValueError:
+        print("No location given")
+
+def get_recent_locations():
+    recent_locations = []
+    try:
+
+        with open("recent_locations.txt", "r") as file:
+            for line in file:
+                line = line.strip()
+                city, country = line.split(",")
+                city = city.replace("+", " ")
+                recent_locations.append(f"{city},{country}")
+
+        return recent_locations
+    except FileNotFoundError:
         return None

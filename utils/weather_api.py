@@ -24,7 +24,9 @@ def set_units(units="imperial"):
 
 def get_forecast(location, units="imperial"):
     try:
+        print("Loading...")
         response = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={location["city"]},{location["country"]}&units={units}&appid={api_key}")
+        
         if response.status_code == 200:
             data = response.json()
 

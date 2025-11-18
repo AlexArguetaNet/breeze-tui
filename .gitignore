@@ -1,4 +1,5 @@
 .venv
 .env
 curr_location.txt
+recent_locations.txt
 __pycache__/
