@@ -2,15 +2,16 @@ from utils.location_storage import get_curr_location, set_curr_location, get_rec
 from utils.weather_api import get_forecast, get_3_hourly_forecast
 from utils.cli_helpers import create_menu, clear_terminal
 from utils.weather_api import get_units, set_units
-import sys
+import sys, os
 
-location_changed = False
-is_recent_location = True
+is_recent = True
 
 def main():
 
-    global location_changed
-    global is_recent_location
+    global is_recent
+
+    if not os.path.isfile("recent_locations.txt"):
+        is_recent = False
     
     while True:
         # Try to get the current forecast data
@@ -31,9 +32,9 @@ def main():
             continue
         else:
 
-            if location_changed and not is_recent_location:
+            if not is_recent:
                 add_recent_location(get_curr_location())
-                location_changed = False
+                is_recent = True
 
             # Case that current location is valid
             curr_forecast = forecast_res["forecast"] # Get forecast object
@@ -68,8 +69,8 @@ def handle_settings():
             pass
         
 def change_location():
-    global location_changed
-    global is_recent_location
+    
+    global is_recent
 
     menu_options = ["Enter new", "Choose from list"]
     recent_locations = get_recent_locations()
@@ -81,27 +82,23 @@ def change_location():
 
     match (option):
         case 0:
-            # Set a new location
+            # Enter a new location
             set_curr_location()
-            is_recent_location = False
+            is_recent = False
+            
         case 1:
             # TODO: Implement list of default locations
             ...
         case 2:
+            # Change to recent location
             new_location_index = create_menu(recent_locations, "Choose")
 
             # Run this code if an option was selected
-            if new_location_index:
+            if new_location_index != None:
                 city, country = recent_locations[new_location_index].split(",")
                 set_curr_location({"city": city, "country": country})
-                is_recent_location = True
+                
     
-    location_changed = True
-    
-        
-
-    
-
     
 if __name__ == "__main__":
     main() 
