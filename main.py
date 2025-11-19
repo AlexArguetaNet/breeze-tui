@@ -1,4 +1,5 @@
-from utils.location_storage import get_curr_location, set_curr_location, get_recent_locations, add_recent_location
+from utils.location_storage import get_curr_location, set_curr_location
+from utils.location_storage import get_recent_locations, add_recent_location, update_recent_locations
 from utils.weather_api import get_forecast, get_3_hourly_forecast
 from utils.cli_helpers import create_menu, clear_terminal
 from utils.weather_api import get_units, set_units
@@ -33,7 +34,11 @@ def main():
         else:
 
             if not is_recent:
-                add_recent_location(get_curr_location())
+                recent_locations = get_recent_locations()
+                if len(recent_locations) > 5:
+                    update_recent_locations(get_curr_location())
+                else:
+                    add_recent_location(get_curr_location())
                 is_recent = True
 
             # Case that current location is valid
@@ -50,6 +55,7 @@ def main():
             elif menu_option == 1:
                 handle_settings()
             else:
+                clear_terminal()
                 sys.exit()
 
 def handle_settings():

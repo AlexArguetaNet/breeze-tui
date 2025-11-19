@@ -2,6 +2,8 @@ import requests, datetime
 from modules.forecast import Forecast
 from modules.three_hourly_forecast import Three_Hourly_Forecast
 from utils.env_config import api_key
+import sys
+from utils.cli_helpers import clear_terminal
 
 def get_units():
     try:
@@ -44,8 +46,10 @@ def get_forecast(location, units="imperial"):
             return response.json()
         
     except requests.exceptions.ConnectionError as e:
-        print(e)
-        return e
+        # Device is not connected to the internet
+        clear_terminal()
+        print("Breeze-tui: Please connect to the internet")
+        sys.exit()
     except TypeError:
         return {"cod": "404", "message": "Location file was empty"}
     

@@ -47,6 +47,26 @@ def get_recent_locations():
                 city = city.replace("+", " ")
                 recent_locations.append(f"{city},{country}")
 
+        recent_locations.reverse()
         return recent_locations
     except FileNotFoundError:
         return None
+    
+def update_recent_locations(location):
+    try:
+        
+        with open("recent_locations.txt", 'r') as file_in:
+            lines = file_in.readlines() # Read all recent locations
+            if not lines:
+                return False
+            
+            lines.append(f"{location["city"]},{location["country"]}\n") # Add new location to file
+            
+        # Write updated file list without first location
+        with open("recent_locations.txt", 'w') as file_out:
+            file_out.writelines(lines[1:])
+
+    except FileNotFoundError:
+        return False
+    except ValueError:
+        return False

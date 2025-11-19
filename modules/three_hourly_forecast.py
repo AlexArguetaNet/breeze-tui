@@ -23,7 +23,7 @@ class Three_Hourly_Forecast:
         days_str = "-----------------------"
 
         for day in self.days:
-            days_str = days_str + f"\n{day.dt}{day.get_ascii()}\n{day.temp}\n{day.desc}\n-----------------------"
+            days_str = days_str + f"\n{day.dt}{day.get_ascii()}\n{day.temp} {day.get_unit_symbol()}°\n{day.desc}\n-----------------------"
 
         return forecast_str + days_str
 
