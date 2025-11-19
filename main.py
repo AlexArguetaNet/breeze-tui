@@ -35,7 +35,7 @@ def main():
 
             if not is_recent:
                 recent_locations = get_recent_locations()
-                if len(recent_locations) > 5:
+                if recent_locations != None and len(recent_locations) > 5:
                     update_recent_locations(get_curr_location())
                 else:
                     add_recent_location(get_curr_location())
