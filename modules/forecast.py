@@ -62,6 +62,8 @@ class Forecast:
                 return art.thunder_storm
             case "snow":
                 return art.snow
+            case "light snow":
+                return art.snow
             case "mist":
                 return art.mist
             case "drizzle":
