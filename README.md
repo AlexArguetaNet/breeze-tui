@@ -15,7 +15,7 @@ A minimal Python terminla user interface (TUI) for checking weather information 
    ```python -m vnev .venv```
 3. Run the virtual environment:
    * Windows: ```.venv\Scripts\activate```
-   * Mac and Linux: ```source .vnev/bin/activate```
+   * Mac and Linux: ```source .venv/bin/activate```
 4. Install dependencies: ```pip install -r requirements.txt```
 5. Create a .env file with your OpenWeatherMap API key:
       ```API_KEY=your-api-key```
