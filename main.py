@@ -23,6 +23,7 @@ def main():
             set_units()
 
         forecast_res = get_forecast(get_curr_location(), units)
+
         clear_terminal() # Clear loading prompt
 
         if forecast_res["cod"] == "404":
@@ -31,6 +32,9 @@ def main():
             print("Enter a valid location")
             set_curr_location()
             continue
+        elif forecast_res["cod"] == 401:
+            print("Please make sure there is a .env file with the API key")
+            sys.exit()
         else:
 
             if not is_recent:
