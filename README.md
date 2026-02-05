@@ -19,3 +19,4 @@ A minimal Python terminla user interface (TUI) for checking weather information 
 4. Install dependencies: ```pip install -r requirements.txt```
 5. Create a .env file with your OpenWeatherMap API key:
       ```API_KEY=your-api-key```
+6. Run the program: ```python main.py```
