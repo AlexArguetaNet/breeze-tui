@@ -4,12 +4,12 @@
 
 A minimal Python terminla user interface (TUI) for checking weather information in multiple locations.
 
-##Main features include:
+## Main features include:
 * Real-time weather data from the OpenWeatherMap API
 * Support for multiple locations by entering the city name and country code
 * Runs in your terminal for fast performance
 
-##Installation Guide
+## Installation Guide
 1. Clone the repository using ```git clone```
 2. Create a python virtual environment in the root project directory:
    ```python -m vnev .venv```
